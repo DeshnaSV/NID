@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+   
+    <link href = "style.css" rel = "stylesheet"/>
+    
+    <script src="d3.js"></script>
+
+</head>
+
+
+
+<body>
+    <main>
+            <h1>Iris Visualization</h1>
+            <p>The Iris flower data set or Fisher's Iris data set is a multivariate data set introduced by the British statistician and biologist Ronald Fisher in his 1936 paper <i>The use of multiple measurements in taxonomic problems as an example of linear discriminant analysis.</i></p>
+            </br>
+            <p>The data set consists of 50 samples from each of three species of Iris- <i>Iris setosa</i>, <i>Iris virginica</i> and <i>Iris versicolor</i>.</p>
+            </br>
+            </br>
+
+            <h3><b>Scatter Plot</b></h3>
+            
+            <img class="vis" src="charticulator 3.svg">
+
+            <h3> <b>Abstract Visualization</b></h3>
+            <img src="charticulator2.svg">
+
+
+
+
+
+
+        <h3>D3 Viz coming Soon</h3>
+        
+        <div class="vis-manual">
+            
+                <div class="box">10</div>
+                <div class="box">20</div>
+                <div class="box">30</div>
+                <div class="box">40</div>
+                <div class="box">50</div>
+        </div>
+
+        <div class ="vis-d3">
+        </div>
+
+        <div class="vis-iris">
+        </div>
+
+
+
+
+
+
+        </main>
+    <script>
+
+        var val= [10,20,40,30,60]
+
+        var sepal=[
+            {"sepalWidth": 15, "sepalLength": 10, "species": "setosa"},
+            {"sepalWidth": 10, "sepalLength": 12, "species": "setosa"},
+            {"sepalWidth": 13, "sepalLength": 16, "species": "versicolor"},
+            {"sepalWidth": 20, "sepalLength": 15, "species": "versicolor"},
+            {"sepalWidth": 12, "sepalLength": 8, "species": "versicolor"},
+        ]
+
+        irisData= d3.csv("iris_csv.csv", d3.autoType)
+
+
+    
+        function color(d){
+            if (d== "iris-setosa") {return "red"}
+            if (d=="iris-versicolor"){return "green"}
+            {return "black"}
+
+        }
+
+    async function vis(){
+
+    irisFull = await d3.csv("iris_csv", d3.autoType)
+
+
+       d3.select(".vis-iris")
+        .selectAll("div")
+        .data(irisFull)
+        .enter()
+        .append("div")
+        .text(d=> d.species)
+        .style("width", d=> d.sepalWidthCm * 5  +"px")
+        .style("length", d=> d.sepalLengthCm * 5 + "px")
+        .style("margin-top", "5px")
+        .style("margin-bottom", "5px")
+        .style("background-color", d => color(d.species))
+
+
+
+
+
+       
+        vis= d3.select(".vis-d3")
+
+        vis.selectAll("div")
+        .data(val)
+        .enter()
+        //enter just binds the data to the placeholder 'div'
+        .append("div")
+        .text(d => d)
+        .style("color","white")
+        .style("background-color", "black")
+        .style("width", d=>d + "px")
+        .style("height", "20px")
+        .style("margin-top", "2px")
+    }
+    vis();
+    </script>
+  
+  
+  
+  <footer>
+        <small> By Deshna Vangal</small>
+    </footer>
+</body>
